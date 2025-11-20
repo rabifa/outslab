@@ -2,7 +2,7 @@
 
 <div align="center">
   
-  ![OutsLab Logo](/src/images/OutsLab-logo.png)
+  <img src="/src/images/OutsLab-logo.png" alt="OutsLab Logo" width="300"/>
   
   **Treine seus cálculos de Outs, Equity e Pot Odds no Poker**
   
