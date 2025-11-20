@@ -738,32 +738,3 @@ document.addEventListener("keypress", (e) => {
     submitAnswer();
   }
 });
-
-// Função para carregar logo
-function loadLogo() {
-  const logoMain = document.getElementById("logoMain");
-  const logoGame = document.getElementById("logoGame");
-  const logoPlaceholder = document.getElementById("logoPlaceholder");
-  const logoGamePlaceholder = document.getElementById("logoGamePlaceholder");
-
-  // Verificar se a imagem existe
-  const img = new Image();
-  img.onload = function () {
-    // Logo existe, mostrar imagem e esconder placeholder
-    logoMain.style.display = "block";
-    logoGame.style.display = "block";
-    logoPlaceholder.style.display = "none";
-    logoGamePlaceholder.style.display = "none";
-  };
-  img.onerror = function () {
-    // Logo não existe, manter placeholder
-    logoMain.style.display = "none";
-    logoGame.style.display = "none";
-    logoPlaceholder.style.display = "block";
-    logoGamePlaceholder.style.display = "block";
-  };
-  img.src = "/src/images/OutsLab-logo.png";
-}
-
-// Carregar logo ao iniciar
-loadLogo();
