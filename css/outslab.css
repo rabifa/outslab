@@ -1,0 +1,257 @@
+body {
+  background-color: #060a11;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Logo Styles */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.logo-container img {
+  max-height: 12em;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-game {
+  max-height: 6em;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-placeholder {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px 40px;
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 2rem;
+  color: white;
+  letter-spacing: 3px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card {
+  width: 80px;
+  height: 115px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  background: white;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+}
+
+.card.red {
+  color: #dc2626;
+}
+
+.card.black {
+  color: #000000;
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+.poker-table {
+  background: radial-gradient(ellipse at center, #1a5f3a 0%, #0d4028 100%);
+  border: 15px solid #8B4513;
+  border-radius: 200px;
+  box-shadow:
+    inset 0 0 50px rgba(0, 0, 0, 0.5),
+    0 10px 30px rgba(0, 0, 0, 0.7);
+  position: relative;
+  padding: 60px 40px;
+}
+
+.poker-table::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px solid rgba(139, 69, 19, 0.3);
+  border-radius: 190px;
+  pointer-events: none;
+}
+
+.poker-table::after {
+  content: 'OUTSLAB';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.03);
+  letter-spacing: 10px;
+  pointer-events: none;
+}
+
+.community-cards {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 40px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.player-area {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 40px;
+  position: relative;
+  z-index: 2;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cards-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+  margin: 12px 0;
+  text-align: center;
+}
+
+.pot-display {
+  background: rgba(0, 0, 0, 0.5);
+  border: 3px solid #FFD700;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+.pot-chips {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.chip {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.chip-1 {
+  background: #dc2626;
+  top: -10px;
+  left: 20px;
+}
+
+.chip-2 {
+  background: #2563eb;
+  top: -5px;
+  right: 25px;
+}
+
+.chip-3 {
+  background: #16a34a;
+  bottom: -10px;
+  left: 30px;
+}
+
+.chip-4 {
+  background: #000000;
+  bottom: -5px;
+  right: 20px;
+}
+
+.street-indicator {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  border: 2px solid rgba(255, 215, 0, 0.5);
+  z-index: 3;
+}
+
+/* Remover setas dos inputs numéricos */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.timer-warning {
+  animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}

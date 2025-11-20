@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OutsLab - Treinador de Outs e Pot Odds</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/outslab.css">
+</head>
+
+<body class="min-h-screen text-white">
+
+  <!-- Tela Inicial -->
+  <div id="menuScreen" class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Logo e Título -->
+      <div class="text-center mb-12">
+        <!-- Logo -->
+        <div class="logo-container">
+          <!-- Substitua o src pela sua logo -->
+          <img src="/src/images/OutsLab-logo.png" alt="OutsLab Logo" class="logo-main" id="logoMain"
+            style="display: none;">
+          <!-- Placeholder enquanto não houver logo -->
+          <div class="logo-placeholder" id="logoPlaceholder">OUTSLAB</div>
+        </div>
+
+        <!-- <h1 class="text-6xl font-bold mb-4 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+          OutsLab
+        </h1> -->
+        <h2 class="text-3xl text-gray-400">Treine seus cálculos de Outs e Pot Odds</h2>
+      </div>
+
+      <!-- Seleção de Nível -->
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-center">Escolha o Nível</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Nível 1 -->
+          <div
+            class="level-card bg-gradient-to-br from-green-600 to-green-800 p-6 rounded-xl cursor-pointer hover:scale-105 transition-transform"
+            onclick="selectLevel(1)">
+            <div class="text-center">
+              <h3 class="text-2xl font-bold mb-3">Iniciante</h3>
+              <ul class="text-sm text-left space-y-2">
+                <li>✓ Flush draws simples</li>
+                <li>✓ Straight draws óbvios</li>
+                <li>✓ Números redondos</li>
+                <li>✓ Tempo configurável</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Nível 2 -->
+          <div
+            class="level-card bg-gradient-to-br from-yellow-600 to-orange-700 p-6 rounded-xl cursor-pointer hover:scale-105 transition-transform"
+            onclick="selectLevel(2)">
+            <div class="text-center">
+              <h3 class="text-2xl font-bold mb-3">Intermediário</h3>
+              <ul class="text-sm text-left space-y-2">
+                <li>✓ Combo draws</li>
+                <li>✓ Draws complexos</li>
+                <li>✓ Valores variados</li>
+                <li>✓ Tempo configurável</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Nível 3 -->
+          <div
+            class="level-card bg-gradient-to-br from-red-600 to-red-900 p-6 rounded-xl cursor-pointer hover:scale-105 transition-transform"
+            onclick="selectLevel(3)">
+            <div class="text-center">
+              <h3 class="text-2xl font-bold mb-3">Avançado</h3>
+              <ul class="text-sm text-left space-y-2">
+                <li>✓ Backdoor draws</li>
+                <li>✓ Implied odds</li>
+                <li>✓ Situações multiway</li>
+                <li>✓ Tempo configurável</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seleção de Timer -->
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-center">Timer</h2>
+        <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+          <div
+            class="timer-option bg-gray-800 p-4 rounded-xl cursor-pointer hover:bg-gray-700 transition-colors text-center"
+            onclick="selectTimer('unlimited')">
+            <div class="text-3xl mb-2">∞</div>
+            <div class="font-bold">Ilimitado</div>
+          </div>
+          <div
+            class="timer-option bg-gray-800 p-4 rounded-xl cursor-pointer hover:bg-gray-700 transition-colors text-center"
+            onclick="selectTimer(30)">
+            <div class="text-3xl mb-2">⏱️</div>
+            <div class="font-bold">30 segundos</div>
+          </div>
+          <div
+            class="timer-option bg-gray-800 p-4 rounded-xl cursor-pointer hover:bg-gray-700 transition-colors text-center"
+            onclick="selectTimer(15)">
+            <div class="text-3xl mb-2">⚡</div>
+            <div class="font-bold">15 segundos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botão Iniciar -->
+      <div class="text-center">
+        <button id="startButton"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-12 rounded-xl text-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          onclick="startGame()" disabled>
+          Iniciar Jogo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tela do Jogo -->
+  <div id="gameScreen" class="container mx-auto px-4 py-8 hidden">
+    <div class="max-w-6xl mx-auto">
+      <!-- Header com Pontuação e Timer -->
+      <div class="flex justify-between items-center mb-8 flex-wrap gap-4">
+        <!-- Logo -->
+        <div class="flex items-center">
+          <!-- Substitua o src pela sua logo -->
+          <img src="/src/images/OutsLab-logo.png" alt="OutsLab Logo" class="logo-game" id="logoGame"
+            style="display: none;">
+          <!-- Placeholder enquanto não houver logo -->
+          <div class="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent"
+            id="logoGamePlaceholder">
+            OUTSLAB
+          </div>
+        </div>
+
+        <div class="flex gap-4 flex-wrap">
+          <div class="bg-gray-800 px-6 py-3 rounded-xl">
+            <div class="text-sm text-gray-400">Pontuação</div>
+            <div class="text-3xl font-bold text-green-400" id="score">0</div>
+          </div>
+
+          <div class="bg-gray-800 px-6 py-3 rounded-xl">
+            <div class="text-sm text-gray-400">Questão</div>
+            <div class="text-3xl font-bold" id="questionCounter">1/10</div>
+          </div>
+
+          <div id="timerDisplay" class="bg-gray-800 px-6 py-3 rounded-xl">
+            <div class="text-sm text-gray-400">Tempo</div>
+            <div class="text-3xl font-bold" id="timeLeft">∞</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Situação do Jogo -->
+      <!-- Layout em 2 Colunas -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- COLUNA 1: Mesa de Poker (8 colunas) -->
+        <div class="lg:col-span-8">
+          <div class="bg-gray-900 rounded-2xl p-6">
+            <div id="situationDescription" class="text-xl text-center mb-6 text-gray-300 font-bold"></div>
+
+            <!-- Mesa de Poker -->
+            <div class="poker-table relative">
+              <!-- Indicador da Street -->
+              <div class="street-indicator" id="streetIndicator">FLOP</div>
+
+              <!-- Pot no Centro -->
+              <div class="pot-display">
+                <div class="pot-chips">
+                  <div class="chip chip-1"></div>
+                  <div class="chip chip-2"></div>
+                  <div class="chip chip-3"></div>
+                  <div class="chip chip-4"></div>
+                </div>
+                <div class="text-xs text-gray-400 mb-1">POT</div>
+                <div class="text-2xl font-bold text-yellow-400" id="potValue">$0</div>
+              </div>
+
+              <!-- Community Cards (Mesa) -->
+              <div>
+                <div class="cards-label">Community Cards</div>
+                <div class="community-cards" id="boardCards"></div>
+              </div>
+
+              <!-- Player Area (Suas Cartas) -->
+              <div class="player-area">
+                <div class="cards-label">Your Hand</div>
+                <div class="flex justify-center gap-3" id="holeCards"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUNA 2: Informações e Respostas (4 colunas) -->
+        <div class="lg:col-span-4 space-y-6">
+
+          <!-- Bloco de Informações do Pot -->
+          <div class="bg-gray-900 rounded-2xl p-6">
+            <h3 class="text-lg font-bold mb-4 text-center text-gray-300 border-b border-gray-700 pb-3">
+              Informações da Mão
+            </h3>
+
+            <div class="space-y-3">
+              <!-- Pot Total -->
+              <div class="bg-gray-800 p-4 rounded-xl border-2 border-green-700">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-2xl">💰</span>
+                    <span class="text-sm text-gray-400 font-semibold">Pot Total</span>
+                  </div>
+                  <div class="text-2xl font-bold text-green-400" id="potValueInfo">$0</div>
+                </div>
+              </div>
+
+              <!-- Aposta -->
+              <div class="bg-gray-800 p-4 rounded-xl border-2 border-red-700">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-2xl">🎯</span>
+                    <span class="text-sm text-gray-400 font-semibold">Aposta</span>
+                  </div>
+                  <div class="text-2xl font-bold text-red-400" id="betValue">$0</div>
+                </div>
+              </div>
+
+              <!-- Jogadores -->
+              <div class="bg-gray-800 p-4 rounded-xl border-2 border-blue-700" id="playersInfo">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-2xl">👥</span>
+                    <span class="text-sm text-gray-400 font-semibold">Jogadores</span>
+                  </div>
+                  <div class="text-2xl font-bold text-blue-400" id="playersCount">2</div>
+                </div>
+              </div>
+
+              <!-- Stack Efetivo -->
+              <div class="bg-gray-800 p-4 rounded-xl border-2 border-purple-700 hidden" id="impliedInfo">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-2xl">💵</span>
+                    <span class="text-sm text-gray-400 font-semibold">Stack Efetivo</span>
+                  </div>
+                  <div class="text-2xl font-bold text-purple-400" id="stackValue">$0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco de Respostas -->
+          <div class="bg-gray-900 rounded-2xl p-6">
+            <h3 class="text-lg font-bold mb-4 text-center text-gray-300 border-b border-gray-700 pb-3">
+              Suas Respostas
+            </h3>
+
+            <div class="space-y-3">
+              <!-- Input de Outs -->
+              <div>
+                <label class="block text-xs font-bold mb-1.5 text-gray-400 uppercase tracking-wider">
+                  Quantos OUTS?
+                </label>
+                <input type="number" id="outsInput"
+                  class="w-full bg-gray-800 text-white border-2 border-gray-700 rounded-lg px-4 py-2.5 text-lg font-bold focus:outline-none focus:border-blue-500 transition-colors"
+                  placeholder="Ex: 9" min="0" max="47">
+              </div>
+
+              <!-- Input de Equity -->
+              <div>
+                <label class="block text-xs font-bold mb-1.5 text-gray-400 uppercase tracking-wider">
+                  Qual sua EQUITY? (%)
+                </label>
+                <input type="number" id="equityInput"
+                  class="w-full bg-gray-800 text-white border-2 border-gray-700 rounded-lg px-4 py-2.5 text-lg font-bold focus:outline-none focus:border-purple-500 transition-colors"
+                  placeholder="Ex: 36" min="0" max="100" step="0.1">
+              </div>
+
+              <!-- Input de Pot Odds -->
+              <div>
+                <label class="block text-xs font-bold mb-1.5 text-gray-400 uppercase tracking-wider">
+                  Qual o POT ODDS? (%)
+                </label>
+                <input type="number" id="potOddsInput"
+                  class="w-full bg-gray-800 text-white border-2 border-gray-700 rounded-lg px-4 py-2.5 text-lg font-bold focus:outline-none focus:border-green-500 transition-colors"
+                  placeholder="Ex: 25" min="0" max="100" step="0.1">
+              </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="mt-5 space-y-2.5">
+              <button onclick="submitAnswer()"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-base transition-colors flex items-center justify-center gap-2">
+                Confirmar Resposta
+              </button>
+
+              <div class="grid grid-cols-2 gap-2.5">
+                <button onclick="skipQuestion()"
+                  class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors flex items-center justify-center gap-1">
+                  Pular
+                </button>
+                <button onclick="quitGame()"
+                  class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors flex items-center justify-center gap-1">
+                  Sair
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Feedback -->
+      <div id="feedback" class="mt-6 p-6 rounded-2xl hidden">
+        <div id="feedbackContent"></div>
+      </div>
+
+      <!-- Tela de Resultado Final -->
+      <div id="resultScreen" class="container mx-auto px-4 py-8 hidden">
+        <div class="max-w-2xl mx-auto text-center">
+          <div class="bg-gray-900 rounded-2xl p-12">
+            <div class="text-6xl mb-6" id="resultEmoji">🎉</div>
+            <h2 class="text-4xl font-bold mb-4">Jogo Finalizado!</h2>
+
+            <div class="bg-gray-800 rounded-xl p-6 mb-6">
+              <div class="text-sm text-gray-400 mb-2">Pontuação Final</div>
+              <div class="text-5xl font-bold text-green-400 mb-4" id="finalScore">0</div>
+              <div class="text-xl text-gray-300" id="finalMessage"></div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 mb-8">
+              <div class="bg-gray-800 rounded-xl p-4">
+                <div class="text-sm text-gray-400">Corretas</div>
+                <div class="text-3xl font-bold text-green-400" id="correctAnswers">0</div>
+              </div>
+              <div class="bg-gray-800 rounded-xl p-4">
+                <div class="text-sm text-gray-400">Incorretas</div>
+                <div class="text-3xl font-bold text-red-400" id="wrongAnswers">0</div>
+              </div>
+              <div class="bg-gray-800 rounded-xl p-4">
+                <div class="text-sm text-gray-400">Puladas</div>
+                <div class="text-3xl font-bold text-gray-400" id="skippedAnswers">0</div>
+              </div>
+            </div>
+
+            <button onclick="returnToMenu()"
+              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-12 rounded-xl text-xl transition-colors">
+              Jogar Novamente
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <script src="js/outslab.js"></script>
+</body>
+
+</html>
