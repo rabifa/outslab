@@ -11,7 +11,7 @@
   [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
   [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
   
-  [Demo ao Vivo](#) • [Reportar Bug](https://github.com/rabifa/outslab/issues) • [Solicitar Feature](https://github.com/rabifa/outslab/issues)
+  [Demo ao Vivo](https://games.coisatech.com.br/outslab/) • [Reportar Bug](https://github.com/rabifa/outslab/issues) • [Solicitar Feature](https://github.com/rabifa/outslab/issues)
   
 </div>
 
